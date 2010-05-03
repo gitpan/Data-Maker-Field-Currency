@@ -4,7 +4,7 @@ use MooseX::Aliases;
 extends 'Data::Maker::Field::Number';
 use Data::Money;
 
-our $VERSION = '0.02';
+our $VERSION = '0.22';
 
 has '+precision' => ( default => 2 );
 has '+separate_thousands' => ( default => 1 );
