@@ -4,7 +4,7 @@ use MooseX::Aliases;
 extends 'Data::Maker::Field::Number';
 use Data::Money;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 has '+precision' => ( default => 2 );
 has '+separate_thousands' => ( default => 1 );
@@ -39,3 +39,66 @@ sub generate_value {
 }
 
 1;
+
+__END__
+
+=head1 NAME 
+
+Data::Maker::Field::Currency - A L<Data::Maker> field class used for generating random currency values.
+
+=head1 SYNOPSIS
+
+  use Data::Maker;
+  use Data::Maker::Field::Currency;
+  
+  my $maker = Data::Maker->new(
+    record_count => 10,
+    fields => [
+      {
+        name => 'price',
+        class => 'Data::Maker::Field::Currency',
+        args => {
+          min => 200,
+          max => 3000,
+          iso_code => 'USD'
+        }
+      }
+    ]
+  );
+
+=head1 DESCRIPTION 
+
+Data::Maker::Field::Currency is a subclass of L<Data::Maker::Field::Number>, with the C<precision> attribute set to 2 and the C<separate_thousands> attribute defined as true.
+
+This class also supports the following L<Moose> attributes:
+
+=over 4
+
+=item * B<iso_code>
+
+A valid currency code, as defined by ISO 4217.  Defaults to USD.
+
+=item * B<code>
+
+An alias for C<iso_code>
+
+=item * B<as_float> (I<Bool>)
+
+If set to a true value, the generated value will be returned as a float, without any currency formatting.
+
+=item * B<with_code> (I<Bool>)
+
+If set to a true value, the generated value will be returned, prefixed by the country code
+
+=back
+
+=head1 AUTHOR
+
+John Ingram (john@funnycow.com)
+
+=head1 LICENSE
+
+Copyright 2010 by John Ingram. All rights reserved.  This program is
+free software; you can redistribute it and/or modify it under the same terms
+as Perl itself.
+
